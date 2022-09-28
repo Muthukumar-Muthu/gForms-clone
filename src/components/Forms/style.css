@@ -17,7 +17,7 @@
 .table-flex {
   display: flex;
   justify-content: space-around;
-  margin-block: 0.75em;
+  padding-block: 0.75em;
   padding-bottom: 1.25em;
   border-bottom: thin dotted lightgrey;
 }
@@ -34,7 +34,13 @@
 .form-openedBy {
   flex-basis: 25%;
 }
-
+.form:hover {
+  background-color: rgba(211, 211, 211, 0.25);
+}
+.forms-noform {
+  margin-inline: auto;
+  text-align: center;
+}
 @media only screen and (max-width: 768px) {
   .forms {
     width: 95%;
