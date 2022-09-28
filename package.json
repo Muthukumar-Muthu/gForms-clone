@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start-Emulators": "firebase emulators:start --import=./emulators --export-on-exit=./emulators",
     "build": "vite build",
     "preview": "vite preview"
   },
