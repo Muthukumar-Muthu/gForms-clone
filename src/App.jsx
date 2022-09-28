@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import Home from "./routes/home/Home";
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element />
-      <Route path="/" element>
-        <Route index element />
+      <Route path="/">
+        <Route index element={<Home />} />
         <Route path="forms">
           <Route path=":id">
             <Route path="responses" element />

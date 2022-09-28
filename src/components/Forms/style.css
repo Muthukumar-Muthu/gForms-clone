@@ -1,0 +1,46 @@
+.forms {
+  width: 65%;
+  margin-inline: auto;
+}
+.forms-caption {
+  text-align: center;
+  margin-block: 2em;
+  font-size: larger;
+  font-weight: bolder;
+}
+.forms-header {
+  margin-block: 1em;
+  font-size: large;
+  font-weight: bold;
+}
+
+.table-flex {
+  display: flex;
+  justify-content: space-around;
+  margin-block: 0.75em;
+  padding-bottom: 1.25em;
+  border-bottom: thin dotted lightgrey;
+}
+.form-name {
+  flex-basis: 55%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 540px;
+}
+.form-time {
+  flex-basis: 10%;
+}
+.form-openedBy {
+  flex-basis: 25%;
+}
+
+@media only screen and (max-width: 768px) {
+  .forms {
+    width: 95%;
+    margin-inline: auto;
+  }
+  .form-name {
+    flex-basis: 40%;
+  }
+}
