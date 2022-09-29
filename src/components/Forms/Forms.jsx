@@ -69,18 +69,23 @@ const Forms = () => {
 
   useEffect(() => {
     async function getForms() {
-      const userDoc = await getDoc(doc(db, "users", "" + ID));
-      if (userDoc.exists()) {
-        const { forms: formsList } = userDoc.data();
-        const formsData = await Promise.all(
-          formsList.map(async (form) => {
-            const formPath = form.path;
-            const formData = await getDoc(doc(db, formPath));
-            return { id: formData.id, data: formData.data() };
-          })
-        );
-        disptach(actions.loaded(formsData));
-      } else disptach(actions.error("Error while fetching your forms"));
+      try {
+        const userDoc = await getDoc(doc(db, "users", "" + ID));
+        if (userDoc.exists()) {
+          const { forms: formsList } = userDoc.data();
+          const formsData = await Promise.all(
+            formsList.map(async (form) => {
+              const formPath = form.path;
+              const formData = await getDoc(doc(db, formPath));
+              return { id: formData.id, data: formData.data() };
+            })
+          );
+          disptach(actions.loaded(formsData));
+        } else disptach(actions.error("No userDoc exsits"));
+      } catch (error) {
+        console.error(error);
+        disptach(actions.error("Error in code"));
+      }
     }
 
     getForms();

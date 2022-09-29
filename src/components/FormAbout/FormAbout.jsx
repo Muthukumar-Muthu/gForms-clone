@@ -1,6 +1,14 @@
 import "./style.css";
 import { Input } from "@chakra-ui/react";
-const FormAbout = ({ title, changeHandler, description, editable = false }) => {
+import { useContext } from "react";
+import { FormContext } from "../../context/FormContext";
+const FormAbout = ({ isCreatingNewForm }) => {
+  const {
+    dispatch,
+    actions,
+    formData: { title },
+    formData: { description },
+  } = useContext(FormContext);
   return (
     <div className="form-about">
       <Input
@@ -8,7 +16,9 @@ const FormAbout = ({ title, changeHandler, description, editable = false }) => {
         fontSize={"6xl"}
         fontWeight={"semibold"}
         name="title"
-        onChange={editable ? changeHandler : () => {}}
+        onChange={
+          isCreatingNewForm ? (e) => dispatch(actions.updateValue(e)) : () => {}
+        }
         value={title}
         padding={"8"}
         marginBlock={"5"}
@@ -21,7 +31,9 @@ const FormAbout = ({ title, changeHandler, description, editable = false }) => {
         fontWeight={"light"}
         color={"grey"}
         name="description"
-        onChange={editable ? changeHandler : () => {}}
+        onChange={
+          isCreatingNewForm ? (e) => dispatch(actions.updateValue(e)) : () => {}
+        }
         value={description}
         padding={"8"}
         border={"none"}

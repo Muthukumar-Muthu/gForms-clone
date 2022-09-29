@@ -1,5 +1,21 @@
 import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
-const RequiredIcon = ({ updateNewQuestion, question, type, id, required }) => {
+import { useContext } from "react";
+
+import { FormContext } from "../../context/FormContext";
+const RequiredIcon = ({ question, type, id, required }) => {
+  const { dispatch, actions } = useContext(FormContext);
+
+  const requiredChangeHandler = (e) => {
+    dispatch(
+      actions.updateQuestion({
+        question,
+        type,
+        id,
+        required: !required,
+        answer: "",
+      })
+    );
+  };
   return (
     <FormControl display="flex" alignItems="center">
       <FormLabel htmlFor="required" mb="0">
@@ -8,9 +24,7 @@ const RequiredIcon = ({ updateNewQuestion, question, type, id, required }) => {
       <Switch
         isChecked={required}
         id="required"
-        onChange={(e) =>
-          updateNewQuestion({ question, type, id, required: !required })
-        }
+        onChange={requiredChangeHandler}
       />
     </FormControl>
   );

@@ -1,25 +1,35 @@
 import { Input, Textarea } from "@chakra-ui/react";
 
-const Answers = ({ type, answering, responseHandler, responses, id }) => {
+const Answers = ({
+  type,
+  isCreatingNewForm,
+  responseHandler = () => {},
+  responses = {},
+  id = "d",
+}) => {
   switch (type) {
     case QUESTION_TYPE.SHORT_ANSWER: {
       return (
         <Input
           type={"text"}
-          value={responses?.answer}
+          value={isCreatingNewForm ? "" : responses?.answer}
           onChange={(e) => {
-            answering && responseHandler({ id, answer: e.target.value });
+            !isCreatingNewForm &&
+              responseHandler({ id, answer: e.target.value });
           }}
+          readOnly={isCreatingNewForm}
         />
       );
     }
     case QUESTION_TYPE.PARAGRAPH: {
       return (
         <Textarea
-          value={responses?.answer}
+          value={isCreatingNewForm ? "" : responses?.answer}
           onChange={(e) => {
-            answering && responseHandler({ id, answer: e.target.value });
+            !isCreatingNewForm &&
+              responseHandler({ id, answer: e.target.value });
           }}
+          readOnly={isCreatingNewForm}
         />
       );
     }
@@ -27,10 +37,12 @@ const Answers = ({ type, answering, responseHandler, responses, id }) => {
       return (
         <Input
           type={"date"}
-          value={responses?.answer}
+          value={isCreatingNewForm ? "" : responses?.answer}
           onChange={(e) => {
-            answering && responseHandler({ id, answer: e.target.value });
+            !isCreatingNewForm &&
+              responseHandler({ id, answer: e.target.value });
           }}
+          readOnly={isCreatingNewForm}
         />
       );
     }
@@ -38,10 +50,12 @@ const Answers = ({ type, answering, responseHandler, responses, id }) => {
       return (
         <Input
           type={"time"}
-          value={responses?.answer}
+          value={isCreatingNewForm ? "" : responses?.answer}
           onChange={(e) => {
-            answering && responseHandler({ id, answer: e.target.value });
+            !isCreatingNewForm &&
+              responseHandler({ id, answer: e.target.value });
           }}
+          readOnly={isCreatingNewForm}
         />
       );
     }
@@ -51,7 +65,8 @@ const Answers = ({ type, answering, responseHandler, responses, id }) => {
           type={"text"}
           value={responses}
           onChange={(e) => {
-            answering && responseHandler({ id, answer: e.target.value });
+            !isCreatingNewForm &&
+              responseHandler({ id, answer: e.target.value });
           }}
         />
       );

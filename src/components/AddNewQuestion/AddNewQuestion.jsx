@@ -1,12 +1,15 @@
 import { Button } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import "./style.css";
+import { useContext } from "react";
+import { FormContext } from "../../context/FormContext";
 
-const AddNewQuestion = ({ addNewQuestion }) => {
+const AddNewQuestion = () => {
+  const { dispatch, actions } = useContext(FormContext);
   return (
     <div className="add-new-question">
       <Button
-        onClick={addNewQuestion}
+        onClick={() => dispatch(actions.addQuestion())}
         variant={"solid"}
         rightIcon={<AddIcon />}
         backgroundColor={"#007ACC"}
