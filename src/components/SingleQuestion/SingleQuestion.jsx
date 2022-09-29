@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Input, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Answers from "../Answers/Answers";
 import QuestionType from "../QuestionType/QuestionType";
 import RequiredIcon from "../RequiredIcon/RequiredIcon";
@@ -10,14 +10,39 @@ const SingleQuestion = ({
   type,
   question,
   id,
-  updateNewQuestion,
+  updateNewQuestion = () => {},
   deleteQuestion,
   required,
+  answering,
+  responseHandler,
+  responses,
 }) => {
   const newQuestionRef = useRef();
   useEffect(() => {
     newQuestionRef.current.focus();
   }, []);
+  if (answering) {
+    return (
+      <div className="form-question">
+        <Input
+          ref={newQuestionRef}
+          fontSize={"4xl"}
+          fontWeight={"medium"}
+          value={question}
+          border={"none"}
+          readOnly
+        />
+        <Answers
+          id={id}
+          responseHandler={responseHandler}
+          responses={responses}
+          answering={answering}
+          type={type}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="form-question">
       <QuestionType

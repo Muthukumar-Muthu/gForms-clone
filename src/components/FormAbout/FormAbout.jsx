@@ -1,6 +1,6 @@
 import "./style.css";
-import { Heading, Input, Text } from "@chakra-ui/react";
-const FormAbout = ({ title, changeHandler, description }) => {
+import { Input } from "@chakra-ui/react";
+const FormAbout = ({ title, changeHandler, description, editable = false }) => {
   return (
     <div className="form-about">
       <Input
@@ -8,7 +8,7 @@ const FormAbout = ({ title, changeHandler, description }) => {
         fontSize={"6xl"}
         fontWeight={"semibold"}
         name="title"
-        onChange={changeHandler}
+        onChange={editable ? changeHandler : () => {}}
         value={title}
         padding={"8"}
         marginBlock={"5"}
@@ -21,7 +21,7 @@ const FormAbout = ({ title, changeHandler, description }) => {
         fontWeight={"light"}
         color={"grey"}
         name="description"
-        onChange={changeHandler}
+        onChange={editable ? changeHandler : () => {}}
         value={description}
         padding={"8"}
         border={"none"}

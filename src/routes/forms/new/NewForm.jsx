@@ -9,6 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { ID } from "../../../../userDetail";
 
@@ -26,7 +27,7 @@ const formInitialState = {
 };
 const NewForm = () => {
   const [formData, setFormData] = useState(formInitialState);
-
+  const navigate = useNavigate();
   function changeHandler(e) {
     const value = e.target.value;
     const name = e.target.name;
@@ -105,6 +106,7 @@ const NewForm = () => {
         forms: [docRef],
       });
     }
+    navigate("/");
   }
   return (
     <div className="full-width-container">

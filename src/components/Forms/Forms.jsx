@@ -11,15 +11,17 @@ const Forms = () => {
     //check the doc is presented or not
     async function d() {
       const userObject = await getDoc(doc(db, "users", "" + ID));
-      const { forms } = userObject.data();
-      const formsData = await Promise.all(
-        forms.map(async (form) => {
-          const formPath = form.path;
-          const formData = await getDoc(doc(db, formPath));
-          return { id: formData.id, data: formData.data() };
-        })
-      );
-      setForms({ loading: false, forms: formsData });
+      if (userObject.exists()) {
+        const { forms } = userObject.data();
+        const formsData = await Promise.all(
+          forms.map(async (form) => {
+            const formPath = form.path;
+            const formData = await getDoc(doc(db, formPath));
+            return { id: formData.id, data: formData.data() };
+          })
+        );
+        setForms({ loading: false, forms: formsData });
+      } else setForms({ loading: false, forms: [] });
     }
     d();
   }, []);
@@ -41,7 +43,11 @@ const Forms = () => {
           </div>
         ) : (
           forms.forms.map((form) => (
-            <Link to={`/forms/${form.id}`} className="table-flex form">
+            <Link
+              key={form.id}
+              to={`/forms/${form.id}/viewform`}
+              className="table-flex form"
+            >
               <p title={form.data.title} className="form-name">
                 {form.data.title}
               </p>
@@ -59,18 +65,3 @@ const Forms = () => {
   );
 };
 export default Forms;
-
-const forms = [
-  {
-    id: "1",
-    name: "ddd",
-    openedBy: "dd",
-    time: "d",
-  },
-  {
-    id: "1",
-    name: "ddd",
-    openedBy: "dd",
-    time: "d",
-  },
-];
