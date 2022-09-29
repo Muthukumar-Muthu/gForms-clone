@@ -1,13 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
+import { ID } from "../../../userDetail";
 import "./style.css";
 
 const Forms = () => {
-  const NoFormExists = (
-    <div>
-      <h1>No forms yet</h1>
-      <p>Click + to create a new form.</p>
-    </div>
-  );
+  const [forms, setForms] = useState({ loading: true, forms: [] });
+  useEffect(() => {
+    //check the doc is presented or not
+    async function d() {
+      const userObject = await getDoc(doc(db, "users", "" + ID));
+      const { forms } = userObject.data();
+      const formsData = await Promise.all(
+        forms.map(async (form) => {
+          const formPath = form.path;
+          const formData = await getDoc(doc(db, formPath));
+          return { id: formData.id, data: formData.data() };
+        })
+      );
+      setForms({ loading: false, forms: formsData });
+    }
+    d();
+  }, []);
   return (
     <section className="forms">
       <p className="forms-caption">Recent Forms</p>
@@ -17,19 +32,21 @@ const Forms = () => {
         <h3 className="form-time">Time</h3>
       </div>
       <div className="forms-body">
-        {forms.length === 0 ? (
+        {forms.loading ? (
+          "loading"
+        ) : forms.forms.length === 0 ? (
           <div className="forms-noform">
             <h1>No forms yet</h1>
             <p>Click + at bottom right to create a new form.</p>
           </div>
         ) : (
-          forms.map((form) => (
+          forms.forms.map((form) => (
             <Link to={`/forms/${form.id}`} className="table-flex form">
-              <p title={form.name} className="form-name">
-                {form.name}
+              <p title={form.data.title} className="form-name">
+                {form.data.title}
               </p>
-              <p title={form.openedBy} className="form-openedBy">
-                {form.openedBy}
+              <p title={form.data.description} className="form-openedBy">
+                {form.data.description}
               </p>
               <p title={form.time} className="form-time">
                 {form.time}

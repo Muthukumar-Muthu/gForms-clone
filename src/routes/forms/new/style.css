@@ -1,0 +1,8 @@
+.full-width-container {
+  background-color: #f0ebf8;
+}
+.newForm-container {
+  width: 85%;
+  margin-inline: auto;
+  padding-bottom: 2em;
+}

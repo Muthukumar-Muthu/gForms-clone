@@ -6,7 +6,7 @@ const NewFormIcon = () => {
   return (
     <div
       className="add-icon"
-      onClick={() => navigate("/forms/new/edit")}
+      onClick={() => navigate("/forms/new")}
       tabIndex={0}
     >
       {<AddIcon />}

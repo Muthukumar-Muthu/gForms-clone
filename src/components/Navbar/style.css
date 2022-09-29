@@ -1,0 +1,9 @@
+nav {
+  position: sticky;
+  top: 0;
+  padding: 1em;
+  background-color: white;
+  display: flex;
+  border-bottom: thin dotted lightgrey;
+  z-index: 2;
+}

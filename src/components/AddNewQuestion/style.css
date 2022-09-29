@@ -1,0 +1,7 @@
+.add-new-question {
+  position: sticky;
+  z-index: 2;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+}

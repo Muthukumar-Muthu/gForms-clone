@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import NewForm from "./routes/forms/new/NewForm";
 import Home from "./routes/home/Home";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
             <Route path="questions" element />
             <Route path="edit" element />
           </Route>
-          <Route path="new" element />
+          <Route path="new" element={<NewForm />} />
         </Route>
       </Route>
     </Routes>

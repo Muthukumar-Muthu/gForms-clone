@@ -1,0 +1,10 @@
+.form-question > * {
+  margin-block: 0.5em;
+}
+
+.form-question {
+  padding: 1em;
+  border-radius: 10px;
+  background-color: white;
+  margin-block: 0.5em;
+}
