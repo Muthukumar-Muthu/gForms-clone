@@ -1,18 +1,11 @@
-import { Button } from "@chakra-ui/react";
-import { ArrowRightIcon } from "@chakra-ui/icons";
 import "./style.css";
 import Logo from "../Logo/Logo";
-const Navbar = ({ submitForm }) => {
+
+const Navbar = ({ actionButton }) => {
   return (
     <nav>
       <Logo />
-      <Button
-        marginLeft={"auto"}
-        rightIcon={<ArrowRightIcon />}
-        onClick={submitForm}
-      >
-        Send
-      </Button>
+      {actionButton}
     </nav>
   );
 };

@@ -14,6 +14,7 @@ import { v4 as uuid } from "uuid";
 import { ID } from "../../../../userDetail";
 
 import AddNewQuestion from "../../../components/AddNewQuestion/AddNewQuestion";
+import CreateFormButton from "../../../components/CreateFormButton/CreateFormButton";
 import FormAbout from "../../../components/FormAbout/FormAbout";
 import FormQuestions from "../../../components/FormQuestions/FormQuestions";
 import Navbar from "../../../components/Navbar/Navbar";
@@ -27,6 +28,7 @@ const formInitialState = {
 };
 const NewForm = () => {
   const [formData, setFormData] = useState(formInitialState);
+  const [creatingForm, setCreatingForm] = useState(false);
   const navigate = useNavigate();
   function changeHandler(e) {
     const value = e.target.value;
@@ -86,8 +88,9 @@ const NewForm = () => {
     });
   }
 
-  async function submitForm() {
+  async function createForm() {
     console.log(formData);
+    setCreatingForm(true);
     const docRef = await addDoc(
       collection(getFirestore(app), "forms"),
       formData
@@ -106,16 +109,22 @@ const NewForm = () => {
         forms: [docRef],
       });
     }
+    setCreatingForm(false);
     navigate("/");
   }
   return (
     <div className="full-width-container">
-      <Navbar submitForm={submitForm} />
+      <Navbar
+        actionButton={
+          <CreateFormButton isLoading={creatingForm} createForm={createForm} />
+        }
+      />
       <div className="newForm-container">
         <FormAbout
           title={formData.title}
           description={formData.description}
           changeHandler={changeHandler}
+          editable
         />
         <FormQuestions
           updateNewQuestion={updateNewQuestion}

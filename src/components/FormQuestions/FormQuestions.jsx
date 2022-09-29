@@ -5,8 +5,8 @@ const FormQuestions = ({
   updateNewQuestion,
   deleteQuestion,
   answering,
-  responseHandler,
-  responses,
+  responseHandler = () => {},
+  responses = [],
 }) => {
   return (
     <div className="form-questions">

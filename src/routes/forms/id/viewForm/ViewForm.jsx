@@ -1,16 +1,26 @@
-import { doc, getDoc } from "firebase/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FormAbout from "../../../../components/FormAbout/FormAbout";
 import FormQuestions from "../../../../components/FormQuestions/FormQuestions";
+import Navbar from "../../../../components/Navbar/Navbar";
 import { db } from "../../../../firebase/firebaseConfig";
-
+import SubmitFormButton from "../../../../components/SubmitFormButton/SubmitFormButton";
 const ViewForm = () => {
   const [formData, setFormData] = useState({
     loading: true,
     data: {},
     error: null,
   });
+  const navigate = useNavigate();
+  const [submittingForm, setSubmittingForm] = useState(false);
   const [responses, setResponse] = useState([]);
   const { id } = useParams();
   useEffect(() => {
@@ -50,6 +60,16 @@ const ViewForm = () => {
       return q;
     });
   }
+
+  async function submitForm() {
+    setSubmittingForm(true);
+    const responeRef = await addDoc(collection(db, "responses"), { responses });
+    await updateDoc(doc(db, "forms", id), {
+      responses: arrayUnion(responeRef),
+    });
+    setSubmittingForm(false);
+    navigate("/");
+  }
   return (
     <div>
       {formData.loading ? (
@@ -57,19 +77,28 @@ const ViewForm = () => {
       ) : formData.error ? (
         formData.error
       ) : (
-        <FormAbout
-          title={formData.data.title}
-          description={formData.data.description}
-          editable={false}
-        />
+        <>
+          <Navbar
+            actionButton={
+              <SubmitFormButton
+                isLoading={submittingForm}
+                submitFrom={submitForm}
+              />
+            }
+          />
+          <FormAbout
+            title={formData.data.title}
+            description={formData.data.description}
+            editable={false}
+          />
+          <FormQuestions
+            responseHandler={responseHandler}
+            responses={responses}
+            answering={true}
+            questions={formData.data.questions}
+          />
+        </>
       )}
-
-      <FormQuestions
-        responseHandler={responseHandler}
-        responses={responses}
-        answering={true}
-        questions={formData.data.questions}
-      />
     </div>
   );
 };
