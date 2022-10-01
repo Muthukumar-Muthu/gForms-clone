@@ -1,0 +1,6 @@
+export default QUESTION_TYPE = {
+  SHORT_ANSWER: "SHORT_ANSWER",
+  PARAGRAPH: "PARAGRAPH",
+  DATE: "DATE",
+  TIME: "TIME",
+};

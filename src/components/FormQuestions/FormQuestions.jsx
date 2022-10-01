@@ -5,7 +5,6 @@ import SingleQuestion from "../SingleQuestion/SingleQuestion";
 const FormQuestions = ({ isCreatingNewForm }) => {
   const {
     formData: { questions },
-    questionType,
   } = useContext(FormContext);
 
   return (
