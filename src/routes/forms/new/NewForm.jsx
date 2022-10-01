@@ -12,8 +12,8 @@ const NewForm = () => {
     <div className="full-width-container">
       <Navbar actionButton={<CreateFormButton />} />
       <div className="newForm-container">
-        <FormAbout isCreatingNewForm={isCreatingNewForm} />
-        <FormQuestions isCreatingNewForm={isCreatingNewForm} />
+        <FormAbout />
+        <FormQuestions />
         <AddNewQuestion isCreatingNewForm={isCreatingNewForm} />
       </div>
     </div>

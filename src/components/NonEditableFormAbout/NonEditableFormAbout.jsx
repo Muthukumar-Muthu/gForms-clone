@@ -1,6 +1,7 @@
-import "./style.css";
 import { Input } from "@chakra-ui/react";
 import { useContext } from "react";
+
+import "./style.css";
 
 import { ViewFormContext } from "../../context/ViewFormContext";
 const NonEditableFormAbout = () => {

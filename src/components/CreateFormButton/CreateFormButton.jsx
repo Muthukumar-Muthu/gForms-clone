@@ -15,7 +15,7 @@ import { FormContext } from "../../context/FormContext";
 import { db } from "../../firebase/firebaseConfig";
 import { useToast } from "@chakra-ui/react";
 import { ID } from "../../../userDetail";
-const CreateFormButton = ({ isLoading, createForm }) => {
+const CreateFormButton = () => {
   const [isCreatingForm, setIsCreatingForm] = useState(false);
   const { formData } = useContext(FormContext);
   const navigate = useNavigate();
@@ -23,11 +23,10 @@ const CreateFormButton = ({ isLoading, createForm }) => {
 
   async function createForm() {
     try {
-      console.log(formData);
       setIsCreatingForm(true);
       const docRef = await addDoc(collection(db, "forms"), formData);
       const userDoc = await getDoc(doc(db, "users", "" + ID));
-      console.log(userDoc.ref.path);
+
       if (userDoc.exists()) {
         console.log("just updating the aray");
         await updateDoc(doc(db, "users", "" + ID), {

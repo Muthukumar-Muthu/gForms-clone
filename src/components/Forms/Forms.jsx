@@ -37,7 +37,7 @@ function formsReducer(state, action) {
       return { ...state, loading: false, data: action.payload };
     }
     case actionTypes.ERROR: {
-      return { ...state, loading: true, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     }
     default:
       throw new Error("No actions matched for getting forms");
@@ -81,7 +81,8 @@ const Forms = () => {
             })
           );
           disptach(actions.loaded(formsData));
-        } else disptach(actions.error("No userDoc exsits"));
+        } else
+          disptach(actions.error("No userDoc exsits. Start creating forms"));
       } catch (error) {
         console.error(error);
         disptach(actions.error("Error in code"));
@@ -91,7 +92,10 @@ const Forms = () => {
     getForms();
   }, []);
 
-  if (formsState.loading) return loading;
+  if (formsState.loading)
+    return <div style={{ textAlign: "center" }}>{"loading..."}</div>;
+  if (formsState.error)
+    return <div style={{ textAlign: "center" }}>{formsState.error}</div>;
   return (
     <section className="forms">
       {formHeader}
