@@ -7,11 +7,12 @@ import RequiredIcon from "../RequiredIcon/RequiredIcon";
 import { FormContext } from "../../context/FormContext";
 import "./style.css";
 
+//@params : hi
 //question used while creating a new form
 const SingleReadonlyQuestion = ({ type, question, id, required }) => {
   const { questionType, dispatch, actions } = useContext(FormContext);
   const checkedType = type == false ? questionType.SHORT_ANSWER : type;
-
+  const isCreatingNewForm = true;
   const newQuestionRef = useRef();
 
   useEffect(() => {

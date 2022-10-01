@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FormContext } from "../../context/FormContext";
-import SingleQuestion from "../SingleQuestion/SingleQuestion";
+import SingleReadOnlyQuestion from "../SingleReadonlyQuestion/SingleReadonlyQuestion";
 
 const FormQuestions = ({ isCreatingNewForm }) => {
   const {
@@ -10,14 +10,13 @@ const FormQuestions = ({ isCreatingNewForm }) => {
   return (
     <div className="form-questions">
       {questions.map((question) => (
-        <SingleQuestion
+        <SingleReadOnlyQuestion
           key={question.id}
           isCreatingNewForm={isCreatingNewForm}
           id={question.id}
           question={question.question}
           type={question?.type}
           required={question?.required}
-          // responses={responses.find((response) => response.id === question.id)}
         />
       ))}
     </div>

@@ -8,15 +8,9 @@ import { FormContext } from "../../context/FormContext";
 import "./style.css";
 import questionType from "../../questionTypes";
 import AnswerableAnswers from "../AnswerableAnswer/AnswerableAnswer";
+import { ViewFormContext } from "../../context/ViewFormContext";
 //question used for answering a question
-const SingleAnswerableQuestion = ({
-  type,
-  question,
-  id,
-  required,
-  responseHandler,
-  response,
-}) => {
+const SingleAnswerableQuestion = ({ type, question, id }) => {
   const checkedType = type == false ? questionType.SHORT_ANSWER : type;
 
   return (
@@ -29,12 +23,7 @@ const SingleAnswerableQuestion = ({
           border={"none"}
           readOnly
         />
-        <AnswerableAnswers
-          id={id}
-          responseHandler={responseHandler}
-          responses={response}
-          type={checkedType}
-        />
+        <AnswerableAnswers id={id} type={checkedType} />
       </div>
     </div>
   );

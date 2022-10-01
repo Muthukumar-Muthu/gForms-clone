@@ -1,0 +1,11 @@
+.form-about {
+  border-top: 20px solid #7248b9;
+  background-color: white;
+  border-radius: 10px;
+  margin-block: 1em;
+}
+.form-title,
+.form-description {
+  border-bottom: thin dotted lightgrey;
+  padding: 0.25em;
+}

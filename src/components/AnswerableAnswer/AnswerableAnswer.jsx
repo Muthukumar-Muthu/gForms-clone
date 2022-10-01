@@ -1,7 +1,12 @@
 import { Input, Textarea } from "@chakra-ui/react";
+import { useContext } from "react";
+import { ViewFormContext } from "../../context/ViewFormContext";
 import QUESTION_TYPE from "../../questionTypes";
 
-const AnswerableAnswers = ({ type, responseHandler, response, id }) => {
+const AnswerableAnswers = ({ type, id }) => {
+  const { responses, responseHandler } = useContext(ViewFormContext);
+  const response = responses.find((response) => response.id === id);
+
   switch (type) {
     case QUESTION_TYPE.SHORT_ANSWER: {
       return (
@@ -28,7 +33,7 @@ const AnswerableAnswers = ({ type, responseHandler, response, id }) => {
       return (
         <Input
           type={"date"}
-          value={isCreatingNewForm ? "" : responses?.answer}
+          value={response.answer}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}
@@ -39,7 +44,7 @@ const AnswerableAnswers = ({ type, responseHandler, response, id }) => {
       return (
         <Input
           type={"time"}
-          value={isCreatingNewForm ? "" : responses?.answer}
+          value={response.answer}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}

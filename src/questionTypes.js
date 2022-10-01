@@ -1,4 +1,4 @@
-export default QUESTION_TYPE = {
+export default {
   SHORT_ANSWER: "SHORT_ANSWER",
   PARAGRAPH: "PARAGRAPH",
   DATE: "DATE",
