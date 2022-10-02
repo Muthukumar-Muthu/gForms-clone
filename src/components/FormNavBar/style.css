@@ -1,0 +1,8 @@
+.formnavbar {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em;
+}
+.formnavbar > * {
+  margin-inline: 0.5em;
+}

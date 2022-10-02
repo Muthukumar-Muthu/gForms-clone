@@ -6,14 +6,14 @@ import QUESTION_TYPE from "../../questionTypes";
 
 const AnswerableAnswers = ({ type, id }) => {
   const { responses, responseHandler } = useContext(ViewFormContext);
-  const response = responses.find((response) => response.id === id);
+  const response = responses[id];
 
   switch (type) {
     case QUESTION_TYPE.SHORT_ANSWER: {
       return (
         <Input
           type={"text"}
-          value={response.answer}
+          value={response}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}
@@ -23,7 +23,7 @@ const AnswerableAnswers = ({ type, id }) => {
     case QUESTION_TYPE.PARAGRAPH: {
       return (
         <Textarea
-          value={response.answer}
+          value={response}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}
@@ -34,7 +34,7 @@ const AnswerableAnswers = ({ type, id }) => {
       return (
         <Input
           type={"date"}
-          value={response.answer}
+          value={response}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}
@@ -45,7 +45,7 @@ const AnswerableAnswers = ({ type, id }) => {
       return (
         <Input
           type={"time"}
-          value={response.answer}
+          value={response}
           onChange={(e) => {
             responseHandler({ id, answer: e.target.value });
           }}

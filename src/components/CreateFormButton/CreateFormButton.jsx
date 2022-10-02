@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { FormContext } from "../../context/FormContext";
 import { db } from "../../firebase/firebaseConfig";
 import { useToast } from "@chakra-ui/react";
-import { ID } from "../../../userDetail";
+import { getUserId } from "../../firebase/userDetails";
 const CreateFormButton = () => {
   const [isCreatingForm, setIsCreatingForm] = useState(false);
   const { formData } = useContext(FormContext);
@@ -25,17 +25,17 @@ const CreateFormButton = () => {
     try {
       setIsCreatingForm(true);
       const docRef = await addDoc(collection(db, "forms"), formData);
-      const userDoc = await getDoc(doc(db, "users", "" + ID));
+      const userDoc = await getDoc(doc(db, "users", getUserId()));
 
       if (userDoc.exists()) {
         console.log("just updating the aray");
-        await updateDoc(doc(db, "users", "" + ID), {
+        await updateDoc(doc(db, "users", getUserId()), {
           forms: arrayUnion(docRef),
         });
       } else {
         console.log("creating a doc");
 
-        await setDoc(doc(db, "users", "" + ID), {
+        await setDoc(doc(db, "users", getUserId()), {
           forms: [docRef],
         });
       }

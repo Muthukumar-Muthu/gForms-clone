@@ -4,8 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 import "./style.css";
 import { db } from "../../firebase/firebaseConfig";
-
-import { ID } from "../../../userDetail"; //for userId
+import { getUserId } from "../../firebase/userDetails";
 
 const formsInitalState = {
   loading: true,
@@ -70,7 +69,7 @@ const Forms = () => {
   useEffect(() => {
     async function getForms() {
       try {
-        const userDoc = await getDoc(doc(db, "users", "" + ID));
+        const userDoc = await getDoc(doc(db, "users", getUserId()));
         if (userDoc.exists()) {
           const { forms: formsList } = userDoc.data();
           const formsData = await Promise.all(

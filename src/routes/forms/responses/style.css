@@ -1,0 +1,20 @@
+.responses-wrapper {
+  background-color: #f0ebf8;
+  padding-bottom: 2em;
+
+  padding-block: 1em;
+}
+.responses {
+  width: 85%;
+  margin-inline: auto;
+}
+.responses > * {
+  margin-block: 0.5em;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1em;
+}
+.about {
+  margin-top: 1em;
+  border-top: 15px solid #7248b9;
+}

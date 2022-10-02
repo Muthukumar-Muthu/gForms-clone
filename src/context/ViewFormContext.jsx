@@ -25,7 +25,7 @@ function ViewFormProvider({ children }) {
   });
   const navigate = useNavigate();
   const [submittingForm, setSubmittingForm] = useState(false);
-  const [responses, setResponse] = useState([]);
+  const [responses, setResponse] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -40,9 +40,9 @@ function ViewFormProvider({ children }) {
             error: null,
           });
           setResponse(
-            form
-              .data()
-              .questions.map((question) => ({ id: question.id, answer: "" }))
+            Object.fromEntries(
+              form.data().questions.map((question) => [question.id, ""])
+            )
           );
         }
       } else
@@ -56,18 +56,12 @@ function ViewFormProvider({ children }) {
   }, []);
 
   function responseHandler({ id, answer }) {
-    console.log(id, answer);
-    setResponse((p) => {
-      const q = p.map((question) =>
-        question.id === id ? { id, answer } : question
-      );
-      console.log(q);
-      return q;
-    });
+    setResponse((p) => ({ ...p, [id]: answer }));
   }
 
   async function submitForm() {
     setSubmittingForm(true);
+
     const responeRef = await addDoc(collection(db, "responses"), {
       responses,
     });
